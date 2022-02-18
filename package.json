@@ -1,0 +1,23 @@
+{
+  "name": "basic-battle-ts",
+  "version": "0.0.1",
+  "description": "Basic Battle System made with TypeScript and NodeJS to use in any project",
+  "main": "index.js",
+  "scripts": {
+    "start": "ts-node ./src/index.ts",
+    "dev": "ts-node-dev --respawn ./src/index.ts",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "game"
+  ],
+  "author": "LineGuii - Guilherme Vicchietti Iannotta",
+  "license": "ISC",
+  "devDependencies": {
+    "ts-node-dev": "^1.1.8",
+    "typescript": "^4.5.5"
+  },
+  "dependencies": {
+    "ts-node": "^10.5.0"
+  }
+}
