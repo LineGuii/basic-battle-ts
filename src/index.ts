@@ -51,7 +51,7 @@ const battleAcolyte = new BattleCharacter(acolyte);
 const battleScout = new BattleCharacter(scout);
 
 
-const battleScene = new BattleScene([battleMerchant, battleAcolyte, battleScientist]);
+const battleScene = new BattleScene([battleMerchant, battleAcolyte, battleScientist, battleScout]);
 
 // console.log(merchant.job.name);
 // console.log(merchant.characterAttributes.getLife());
@@ -66,48 +66,66 @@ const dpPoison = new DamageStep(battleScout, battleScientist, PoisonDart, battle
 dpPoison.visualize();
 dpPoison.execute();
 
-const dp1 = new DamageStep(battleMerchant, battleScientist, OfferHammer, battleScene.currentTurn);
-dp1.visualize();
-dp1.execute();
-
-battleScene.passTurn();
-let dp2 = new DamageStep(battleMerchant, battleScientist, NormalAttack, battleScene.currentTurn);
-dp2.visualize();
-dp2.execute();
-
-battleScene.passTurn();
-dp2 = new DamageStep(battleMerchant, battleScientist, NormalAttack, battleScene.currentTurn);
-dp2.visualize();
-dp2.execute();
-
-battleScene.passTurn();
-const dp4 = new DamageStep(battleScientist, battleMerchant, LovePotion, battleScene.currentTurn);
-dp4.visualize();
-dp4.execute();
-
-battleScene.passTurn();
-dp2 = new DamageStep(battleMerchant, battleScientist, NormalAttack, battleScene.currentTurn);
-dp2.visualize();
-dp2.execute();
-
-battleScene.passTurn();
-dp2 = new DamageStep(battleMerchant, battleScientist, NormalAttack, battleScene.currentTurn);
-dp2.visualize();
-dp2.execute();
-
-battleScene.passTurn();
-dp2 = new DamageStep(battleMerchant, battleScientist, NormalAttack, battleScene.currentTurn);
-dp2.visualize();
-dp2.execute();
-
-battleScene.passTurn();
-dp2 = new DamageStep(battleMerchant, battleScientist, NormalAttack, battleScene.currentTurn);
-dp2.visualize();
-dp2.execute();
-
-battleScene.passTurn();
-const dp3 = new DamageStep(battleAcolyte, battleScientist, Heal, battleScene.currentTurn);
-dp3.visualize();
-dp3.execute();
+battleScene.nextTurn();
+battleScene.nextTurn();
+battleScene.nextTurn();
+battleScene.nextTurn();
+battleScene.nextTurn();
+battleScene.nextTurn();
+battleScene.nextTurn();
+battleScene.nextTurn();
+battleScene.nextTurn();
+battleScene.nextTurn();
+battleScene.nextTurn();
+battleScene.nextTurn();
+battleScene.nextTurn();
+battleScene.nextTurn();
+battleScene.nextTurn();
+battleScene.nextTurn();
+battleScene.nextTurn();
+//
+// const dp1 = new DamageStep(battleMerchant, battleScientist, OfferHammer, battleScene.currentTurn);
+// dp1.visualize();
+// dp1.execute();
+//
+// battleScene.passTurn();
+// let dp2 = new DamageStep(battleMerchant, battleScientist, NormalAttack, battleScene.currentTurn);
+// dp2.visualize();
+// dp2.execute();
+//
+// battleScene.passTurn();
+// dp2 = new DamageStep(battleMerchant, battleScientist, NormalAttack, battleScene.currentTurn);
+// dp2.visualize();
+// dp2.execute();
+//
+// battleScene.passTurn();
+// const dp4 = new DamageStep(battleScientist, battleMerchant, LovePotion, battleScene.currentTurn);
+// dp4.visualize();
+// dp4.execute();
+//
+// battleScene.passTurn();
+// dp2 = new DamageStep(battleMerchant, battleScientist, NormalAttack, battleScene.currentTurn);
+// dp2.visualize();
+// dp2.execute();
+//
+// battleScene.passTurn();
+// dp2 = new DamageStep(battleMerchant, battleScientist, NormalAttack, battleScene.currentTurn);
+// dp2.visualize();
+// dp2.execute();
+//
+// battleScene.passTurn();
+// dp2 = new DamageStep(battleMerchant, battleScientist, NormalAttack, battleScene.currentTurn);
+// dp2.visualize();
+// dp2.execute();
+//
+// battleScene.passTurn();
+// dp2 = new DamageStep(battleMerchant, battleScientist, NormalAttack, battleScene.currentTurn);
+// dp2.visualize();
+// dp2.execute();
+//
+// battleScene.passTurn();
+// const dp3 = new DamageStep(battleAcolyte, battleScientist, Heal, battleScene.currentTurn);
+// dp3.visualize();
+// dp3.execute();
 
 // console.log(Math.round(22.5 * (22.5 + 100) / 100 * 8 / (15.5 + 8)));
