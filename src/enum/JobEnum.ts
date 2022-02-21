@@ -35,7 +35,7 @@ export enum JobId {
     Illusionist,
     Enchanter,
     Mentalist,
-    Escoteiro,
+    Scout,
     Archer,
     Gunner,
     Ranger,

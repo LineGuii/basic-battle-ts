@@ -16,6 +16,7 @@ export enum SkillTargetEnum {
 export enum SkillEffectTypeEnum {
     PHYSICAL = "PHYSICAL",
     MAGICAL = "MAGICAL",
+    TRUE = "TRUE"
 }
 
 export type SkillOutput = {

@@ -6,10 +6,12 @@ import Acolyte from "./model/job/Acolyte";
 import Assassin from "./model/job/Assassin";
 import Merchant from "./model/job/Merchant";
 import Scientist from "./model/job/Scientist";
+import Scout from "./model/job/Scout";
 import Heal from "./model/skill/acolyte/Heal";
 import OfferHammer from "./model/skill/merchant/OfferHammer";
 import NormalAttack from "./model/skill/NormalAttack";
 import LovePotion from "./model/skill/scientist/LovePotion";
+import PoisonDart from "./model/skill/scout/PoisonDart";
 
 const merchant: Character  = new Character(
     {
@@ -35,9 +37,18 @@ const acolyte: Character  = new Character(
     }
 );
 
+const scout: Character  = new Character(
+    {
+        name: "Teemo da Silva",
+        job: Scout,
+        level: 20
+    }
+);
+
 const battleMerchant = new BattleCharacter(merchant);
 const battleScientist = new BattleCharacter(scientist);
 const battleAcolyte = new BattleCharacter(acolyte);
+const battleScout = new BattleCharacter(scout);
 
 
 const battleScene = new BattleScene([battleMerchant, battleAcolyte, battleScientist]);
@@ -50,6 +61,11 @@ const battleScene = new BattleScene([battleMerchant, battleAcolyte, battleScient
 // console.log(scientist.characterAttributes);
 // console.log("Ataque: " + battleMerchant.battleAttributes.attack);
 // console.log("Defesa: " + battleScientist.battleAttributes.defense);
+
+const dpPoison = new DamageStep(battleScout, battleScientist, PoisonDart, battleScene.currentTurn);
+dpPoison.visualize();
+dpPoison.execute();
+
 const dp1 = new DamageStep(battleMerchant, battleScientist, OfferHammer, battleScene.currentTurn);
 dp1.visualize();
 dp1.execute();

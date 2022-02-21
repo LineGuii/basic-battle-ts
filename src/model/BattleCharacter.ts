@@ -53,8 +53,12 @@ export default class BattleCharacter {
     calculateDamage(damage: number, type: SkillEffectTypeEnum): number {
         if (type === SkillEffectTypeEnum.PHYSICAL) {
             return Math.round(damage * (damage + 100) / 100 * 8 / (this.battleAttributes.defense + 8));
+        } else if (type === SkillEffectTypeEnum.MAGICAL) {
+            return Math.round(damage * (damage + 100) / 100 * 8 / (this.battleAttributes.magicalDefense + 8));
+        } else if(type === SkillEffectTypeEnum.TRUE) {
+            return Math.round(damage);
         }
-        return Math.round(damage * (damage + 100) / 100 * 8 / (this.battleAttributes.magicalDefense + 8));
+        return Math.round(damage);
     }
 
     calculateHitChance(attackerAccuracy: number) {
