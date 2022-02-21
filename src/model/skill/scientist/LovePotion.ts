@@ -1,47 +1,41 @@
 import { normalizeDamageSkillHitChance } from "../../../util/SkillUtil";
 import BattleCharacter from "../../BattleCharacter";
-import ISkill, { SkillDamageTypeEnum, SkillTargetEnum, SkillTypeEnum } from "../../ISkill";
+import { SkillEffectTypeEnum, SkillOutput, SkillTargetEnum, SkillTypeEnum } from "../../../enum/SkillEnum";
+import ISkill from "../../interface/ISkill";
+import ExpiringEffect from "../../ExpiringEffect";
 
 const LovePotion: ISkill = {
-    name: "Offer Hammer",
+    name: "Love Potion",
     id: 2,
     resourceCost: 0,
-    type: SkillTypeEnum.DAMAGE,
+    type: SkillTypeEnum.BUFF,
     range: 1,
     target: SkillTargetEnum.ENEMY,
     area: 1,
-    damageType: SkillDamageTypeEnum.PHYSICAL,
+    effectType: SkillEffectTypeEnum.MAGICAL,
     jobId: 1,
     accuracyModifier: 1,
 
-    use: (user: BattleCharacter, target: BattleCharacter, hitChance: number, skillDamage: number, criticalChance: number) => {
-        let success = false;
-        let damage = skillDamage;
-
-        const r = Math.random();
-
-        if (r * 100 < hitChance) {
-            success = true;
-            const r2 = Math.random();
-            if (r2 * 100 < criticalChance) {
-                damage = skillDamage * 2;
-            }
-        }
+    execute: (user: BattleCharacter, target: BattleCharacter, hitChance: number, skillDamage: number, criticalChance: number, turn: number): SkillOutput => {
+        let success = true;
+        const ee = new ExpiringEffect("Attack UP!", 3, turn, (target) => {
+            target.battleAttributes.attack *= 1.2;
+        });
 
         return {
-            damage: damage,
+            effect: 0,
             success: success,
+            critical: false,
+            expiringEffect: ee
         }
     },
 
     skillHitChance: (user: BattleCharacter, target: BattleCharacter) => {
-        const hitChance = normalizeDamageSkillHitChance(Math.round(target.calculateHitChance(user.battleAttributes.getAccuracy() * 1.5)));
-        return hitChance;
+        return 100;
     },
     
-    skillDamage: (user: BattleCharacter, target: BattleCharacter) => {
-        const damage = Math.round(target.calculateDamage(user.battleAttributes.getAttack(), SkillDamageTypeEnum.PHYSICAL));
-        return damage
+    skillEffectNumber: (user: BattleCharacter, target: BattleCharacter) => {
+        return 0;
     },
 
     skillCriticalChance: (user: BattleCharacter) => {

@@ -1,7 +1,8 @@
-import IJob from "../IJob";
+import { JobId } from "../../enum/JobEnum";
+import IJob from "../interface/IJob";
 
 const Acolyte: IJob = {
-        id: 25,
+        id: JobId.Acolyte,
         name: "Acolyte",
         preJobId: null,
 

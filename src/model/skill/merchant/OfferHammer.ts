@@ -1,6 +1,7 @@
 import { normalizeDamageSkillHitChance } from "../../../util/SkillUtil";
 import BattleCharacter from "../../BattleCharacter";
-import ISkill, { SkillDamageTypeEnum, SkillTargetEnum, SkillTypeEnum } from "../../ISkill";
+import { SkillEffectTypeEnum, SkillTargetEnum, SkillTypeEnum } from "../../../enum/SkillEnum";
+import ISkill from "../../interface/ISkill";
 
 const OfferHammer: ISkill = {
     name: "Offer Hammer",
@@ -10,13 +11,14 @@ const OfferHammer: ISkill = {
     range: 1,
     target: SkillTargetEnum.ENEMY,
     area: 1,
-    damageType: SkillDamageTypeEnum.PHYSICAL,
+    effectType: SkillEffectTypeEnum.PHYSICAL,
     jobId: 1,
     accuracyModifier: 1,
 
-    use: (user: BattleCharacter, target: BattleCharacter, hitChance: number, skillDamage: number, criticalChance: number) => {
+    execute: (user: BattleCharacter, target: BattleCharacter, hitChance: number, skillDamage: number, criticalChance: number, turn: number) => {
         let success = false;
         let damage = skillDamage;
+        let critical = false;
 
         const r = Math.random();
 
@@ -25,13 +27,15 @@ const OfferHammer: ISkill = {
             const r2 = Math.random();
             if (r2 * 100 < criticalChance) {
                 console.log("CRITICAL");
+                critical = true;
                 damage = skillDamage * 2;
             }
         }
 
         return {
-            damage: damage,
+            effect: damage,
             success: success,
+            critical: critical
         }
     },
 
@@ -40,7 +44,7 @@ const OfferHammer: ISkill = {
         return hitChance;
     },
     
-    skillDamage: (user: BattleCharacter, target: BattleCharacter) => {
+    skillEffectNumber: (user: BattleCharacter, target: BattleCharacter) => {
         const damage = user.battleAttributes.attack;
         return damage
     },

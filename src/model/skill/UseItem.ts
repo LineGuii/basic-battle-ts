@@ -3,7 +3,7 @@ import BattleCharacter from "../BattleCharacter";
 import { SkillEffectTypeEnum, SkillTargetEnum, SkillTypeEnum } from "../../enum/SkillEnum";
 import ISkill from "../interface/ISkill";
 
-const NormalAttack: ISkill = {
+const UseItem: ISkill = {
     name: "Normal Attack",
     id: 2,
     resourceCost: 0,
@@ -55,4 +55,4 @@ const NormalAttack: ISkill = {
     }
 }
 
-export default NormalAttack;
+export default UseItem;

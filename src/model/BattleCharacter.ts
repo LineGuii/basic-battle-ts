@@ -1,6 +1,7 @@
+import { SkillEffectTypeEnum } from "../enum/SkillEnum";
 import Character from "./Character";
 import CharacterAttributes from "./CharacterAttributes";
-import { SkillDamageTypeEnum } from "./ISkill";
+import ExpiringEffect from "./ExpiringEffect";
 
 export default class BattleCharacter {
     character: Character;
@@ -8,6 +9,7 @@ export default class BattleCharacter {
     currentLife: number;
     battleAttributes: CharacterAttributes;
     statusList: [] = [];
+    expiringEffects: ExpiringEffect[] = [];
 
     constructor(character: Character) {
         this.character = character;
@@ -16,9 +18,18 @@ export default class BattleCharacter {
         this.currentLife = this.battleAttributes.getLife();
     }
 
-    takeDamage(damage: number, type: SkillDamageTypeEnum): number {
+    takeDamage(damage: number, type: SkillEffectTypeEnum): number {
         const value = Math.round(this.calculateDamage(damage, type));
         this.currentLife -= value;
+
+        if (this.currentLife > this.maximumLife) {
+            this.currentLife = this.maximumLife;
+        }
+
+        if (this.currentLife < 0) {
+            this.currentLife = 0;
+        }
+
         return value;
     }
 
@@ -39,8 +50,8 @@ export default class BattleCharacter {
         }
     }
 
-    calculateDamage(damage: number, type: SkillDamageTypeEnum): number {
-        if (type === SkillDamageTypeEnum.PHYSICAL) {
+    calculateDamage(damage: number, type: SkillEffectTypeEnum): number {
+        if (type === SkillEffectTypeEnum.PHYSICAL) {
             return Math.round(damage * (damage + 100) / 100 * 8 / (this.battleAttributes.defense + 8));
         }
         return Math.round(damage * (damage + 100) / 100 * 8 / (this.battleAttributes.magicalDefense + 8));
@@ -49,4 +60,25 @@ export default class BattleCharacter {
     calculateHitChance(attackerAccuracy: number) {
         return attackerAccuracy * (attackerAccuracy + 100) / 100 * 24 / (this.battleAttributes.flee + 12);
     }
+
+    receiveExpiringEffect(expiringEffect: ExpiringEffect) {
+        expiringEffect.useEffect(this);
+        this.expiringEffects = [...this.expiringEffects, expiringEffect];
+    }
+
+    turnStarted(turn: number): void {
+        // Reset attributes
+        this.battleAttributes = new CharacterAttributes(this.character.characterAttributes);
+
+        // Apply effects
+        this.expiringEffects = this.expiringEffects.filter((effect: ExpiringEffect) => {
+            if (turn > effect.turnsToExpire + (effect.startedTurn ? effect.startedTurn : 0 )) {
+                return false;
+            } else {
+                effect.useEffect(this);
+                console.log("Efeito:", effect.name);
+                return true;
+            }
+        });
+    }  
 }

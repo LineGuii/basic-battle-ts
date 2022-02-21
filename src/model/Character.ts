@@ -1,5 +1,5 @@
 import CharacterAttributes, { BaseAttributes } from "./CharacterAttributes";
-import IJob from "./IJob";
+import IJob from "./interface/IJob";
 
 type CharacterProps = {
     name: string,
