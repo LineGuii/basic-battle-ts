@@ -7,6 +7,7 @@ import Poison from "../../status-effect/Poison";
 
 const PoisonDart: ISkill = {
     name: "Poison Dart",
+    desc: "Attack with a chance to poison the target.",
     id: 2,
     resourceCost: 0,
     type: SkillTypeEnum.DAMAGE,
@@ -15,7 +16,6 @@ const PoisonDart: ISkill = {
     area: 1,
     effectType: SkillEffectTypeEnum.PHYSICAL,
     jobId: 1,
-    accuracyModifier: 1,
 
     execute: (user: BattleCharacter, target: BattleCharacter, hitChance: number, skillDamage: number, criticalChance: number, turn: number) => {
         let success = false;
@@ -28,11 +28,13 @@ const PoisonDart: ISkill = {
         if (r * 100 < hitChance) {
             success = true;
 
+            // Chance to apply Poison
             const r3 = Math.random();
             if (r3 * 100 < 33) {
-                ee = new Poison(3, turn, (target.maximumLife * 0.01) + 1, "Poison");                
+                ee = new Poison(3, turn, (target.maximumLife * 0.01) + 1, "Poison");
             }
 
+            // Chance to Critical
             const r2 = Math.random();
             if (r2 * 100 < criticalChance) {
                 console.log("CRITICAL");

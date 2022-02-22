@@ -5,6 +5,7 @@ import ISkill from "../interface/ISkill";
 
 const NormalAttack: ISkill = {
     name: "Normal Attack",
+    desc: "Attacks the target with main weapon.",
     id: 2,
     resourceCost: 0,
     type: SkillTypeEnum.DAMAGE,
@@ -13,7 +14,6 @@ const NormalAttack: ISkill = {
     area: 1,
     effectType: SkillEffectTypeEnum.PHYSICAL,
     jobId: 1,
-    accuracyModifier: 1,
 
     execute: (user: BattleCharacter, target: BattleCharacter, hitChance: number, skillDamage: number, criticalChance: number, turn: number) => {
         let success = false;

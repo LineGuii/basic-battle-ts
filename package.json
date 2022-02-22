@@ -1,11 +1,12 @@
 {
   "name": "basic-battle-ts",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Basic Battle System made with TypeScript and NodeJS to use in any project",
   "main": "index.js",
   "scripts": {
     "start": "ts-node ./src/index.ts",
     "dev": "ts-node-dev --respawn ./src/index.ts",
+    "build": "tsc ./src/index.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [

@@ -5,11 +5,13 @@ export default class ExpiringEffect {
     turnsToExpire: number;
     startedTurn: number;
     useEffect: (target: BattleCharacter)=>void;
+    useOnApply: boolean = true
 
-    constructor(name: string, turnsToExpire: number, startedTurn: number, useEffect: (target: BattleCharacter)=>void) {
+    constructor(name: string, turnsToExpire: number, startedTurn: number, useEffect: (target: BattleCharacter)=>void, useOnApply?: boolean) {
         this.name = name;
         this.turnsToExpire = turnsToExpire;
         this.startedTurn = startedTurn;
         this.useEffect = useEffect;
+        this.useOnApply = useOnApply != null ? useOnApply : true;
     };
 }

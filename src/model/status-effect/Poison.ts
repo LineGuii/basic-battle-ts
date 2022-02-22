@@ -5,7 +5,7 @@ import ExpiringEffect from "../ExpiringEffect";
 export default class Poison extends ExpiringEffect {
     
     constructor(turnsToExpire: number, startedTurn: number, damage: number, name?: string) {
-        super(name ? name : "Poison", turnsToExpire, startedTurn, (target: BattleCharacter) => Poison._poisonTick(damage, target));
+        super(name ? name : "Poison", turnsToExpire, startedTurn, (target: BattleCharacter) => Poison._poisonTick(damage, target), false);
     }
 
     private static _poisonTick(damage: number, target: BattleCharacter): void {

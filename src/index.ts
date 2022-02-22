@@ -11,6 +11,7 @@ import Heal from "./model/skill/acolyte/Heal";
 import OfferHammer from "./model/skill/merchant/OfferHammer";
 import NormalAttack from "./model/skill/NormalAttack";
 import LovePotion from "./model/skill/scientist/LovePotion";
+import ParalyzeDart from "./model/skill/scout/ParalyzeDart";
 import PoisonDart from "./model/skill/scout/PoisonDart";
 
 const merchant: Character  = new Character(
@@ -45,13 +46,16 @@ const scout: Character  = new Character(
     }
 );
 
-const battleMerchant = new BattleCharacter(merchant);
-const battleScientist = new BattleCharacter(scientist);
-const battleAcolyte = new BattleCharacter(acolyte);
-const battleScout = new BattleCharacter(scout);
+
+const battleScene = new BattleScene();
 
 
-const battleScene = new BattleScene([battleMerchant, battleAcolyte, battleScientist, battleScout]);
+const battleMerchant = new BattleCharacter(merchant, battleScene);
+const battleScientist = new BattleCharacter(scientist, battleScene);
+const battleAcolyte = new BattleCharacter(acolyte, battleScene);
+const battleScout = new BattleCharacter(scout, battleScene);
+
+
 
 // console.log(merchant.job.name);
 // console.log(merchant.characterAttributes.getLife());
@@ -67,14 +71,11 @@ dpPoison.visualize();
 dpPoison.execute();
 
 battleScene.nextTurn();
-battleScene.nextTurn();
-battleScene.nextTurn();
-battleScene.nextTurn();
-battleScene.nextTurn();
-battleScene.nextTurn();
-battleScene.nextTurn();
-battleScene.nextTurn();
-battleScene.nextTurn();
+
+const dpParalyze = new DamageStep(battleScout, battleScientist, ParalyzeDart, battleScene.currentTurn);
+dpParalyze.visualize();
+dpParalyze.execute();
+
 battleScene.nextTurn();
 battleScene.nextTurn();
 battleScene.nextTurn();

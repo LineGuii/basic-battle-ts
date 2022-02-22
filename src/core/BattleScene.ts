@@ -1,18 +1,29 @@
 import BattleCharacter from "../model/BattleCharacter";
 
 export default class BattleScene {
-    battleCharacters: BattleCharacter[];
-    turnOrder: BattleCharacter[];
+    battleCharacters: BattleCharacter[] = [];
+    turnOrder: BattleCharacter[] = [];
     currentTurn: number = 0;
     currentRound: number = 0;
 
-    battleCharacterTurn: BattleCharacter;
+    battleCharacterTurn!: BattleCharacter;
 
-    constructor(battleCharacters: BattleCharacter[]) {
-        console.log("A batalha começou!!!")
-        this.battleCharacters = battleCharacters;
+    constructor() {
+    }
+
+    addBattleCharacter(battleCharacter: BattleCharacter) {
+        this.battleCharacters.push(battleCharacter);
         this.turnOrder = this.getTurnOrder();
         this.battleCharacterTurn = this.turnOrder[0];
+    }
+
+    startBattle() {
+        if (this.battleCharacters.length < 2) {
+            console.log("Erro ao iniciar a batalha, necessário ao menos 2 personagens");
+            return;
+        }
+
+        console.log("A batalha começou!!!");
         this.startTurn();
     }
 

@@ -6,6 +6,7 @@ import { JobId } from "../../../enum/JobEnum";
 
 const OfferHammer: ISkill = {
     name: "Heal",
+    desc: "Heal an unit.",
     id: 3,
     resourceCost: 1,
     type: SkillTypeEnum.BUFF,
@@ -14,7 +15,6 @@ const OfferHammer: ISkill = {
     area: 1,
     effectType: SkillEffectTypeEnum.MAGICAL,
     jobId: JobId.Acolyte,
-    accuracyModifier: 1,
 
     execute: (user: BattleCharacter, target: BattleCharacter, hitChance: number, skillHealAmount: number, criticalChance: number, turn: number) => {
         let success = true;

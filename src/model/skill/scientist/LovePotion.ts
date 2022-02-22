@@ -6,6 +6,7 @@ import ExpiringEffect from "../../ExpiringEffect";
 
 const LovePotion: ISkill = {
     name: "Love Potion",
+    desc: "Increase target attack",
     id: 2,
     resourceCost: 0,
     type: SkillTypeEnum.BUFF,
@@ -14,7 +15,6 @@ const LovePotion: ISkill = {
     area: 1,
     effectType: SkillEffectTypeEnum.MAGICAL,
     jobId: 1,
-    accuracyModifier: 1,
 
     execute: (user: BattleCharacter, target: BattleCharacter, hitChance: number, skillDamage: number, criticalChance: number, turn: number): SkillOutput => {
         let success = true;
