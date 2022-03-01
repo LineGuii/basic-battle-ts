@@ -1,6 +1,6 @@
 {
   "name": "basic-battle-ts",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Basic Battle System made with TypeScript and NodeJS to use in any project",
   "main": "index.js",
   "scripts": {

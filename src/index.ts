@@ -1,9 +1,7 @@
 import BattleScene from "./core/BattleScene";
-import DamageStep from "./core/DamageStep";
 import BattleCharacter from "./model/BattleCharacter";
 import Character from "./model/Character";
 import Acolyte from "./model/job/Acolyte";
-import Assassin from "./model/job/Assassin";
 import Merchant from "./model/job/Merchant";
 import Scientist from "./model/job/Scientist";
 import Scout from "./model/job/Scout";
@@ -54,7 +52,6 @@ const battleMerchant = new BattleCharacter(merchant);
 const battleScientist = new BattleCharacter(scientist);
 const battleAcolyte = new BattleCharacter(acolyte);
 const battleScout = new BattleCharacter(scout);
-battleScout.battleAttributes.attack += 40;
 
 const battleScene = new BattleScene([battleScientist, battleScout]);
 
@@ -63,49 +60,3 @@ async function battleStart() {
 }
 
 battleStart();
-//
-// const dp1 = new DamageStep(battleMerchant, battleScientist, OfferHammer, battleScene.currentTurn);
-// dp1.visualize();
-// dp1.execute();
-//
-// battleScene.passTurn();
-// let dp2 = new DamageStep(battleMerchant, battleScientist, NormalAttack, battleScene.currentTurn);
-// dp2.visualize();
-// dp2.execute();
-//
-// battleScene.passTurn();
-// dp2 = new DamageStep(battleMerchant, battleScientist, NormalAttack, battleScene.currentTurn);
-// dp2.visualize();
-// dp2.execute();
-//
-// battleScene.passTurn();
-// const dp4 = new DamageStep(battleScientist, battleMerchant, LovePotion, battleScene.currentTurn);
-// dp4.visualize();
-// dp4.execute();
-//
-// battleScene.passTurn();
-// dp2 = new DamageStep(battleMerchant, battleScientist, NormalAttack, battleScene.currentTurn);
-// dp2.visualize();
-// dp2.execute();
-//
-// battleScene.passTurn();
-// dp2 = new DamageStep(battleMerchant, battleScientist, NormalAttack, battleScene.currentTurn);
-// dp2.visualize();
-// dp2.execute();
-//
-// battleScene.passTurn();
-// dp2 = new DamageStep(battleMerchant, battleScientist, NormalAttack, battleScene.currentTurn);
-// dp2.visualize();
-// dp2.execute();
-//
-// battleScene.passTurn();
-// dp2 = new DamageStep(battleMerchant, battleScientist, NormalAttack, battleScene.currentTurn);
-// dp2.visualize();
-// dp2.execute();
-//
-// battleScene.passTurn();
-// const dp3 = new DamageStep(battleAcolyte, battleScientist, Heal, battleScene.currentTurn);
-// dp3.visualize();
-// dp3.execute();
-
-// console.log(Math.round(22.5 * (22.5 + 100) / 100 * 8 / (15.5 + 8)));
