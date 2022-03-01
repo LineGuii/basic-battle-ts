@@ -10,15 +10,12 @@ export default class BattleCharacter {
     currentLife: number;
     battleAttributes: CharacterAttributes;
     expiringEffects: ExpiringEffect[] = [];
-    private _battleScene: BattleScene;
 
-    constructor(character: Character, battleScene: BattleScene) {
+    constructor(character: Character) {
         this.character = character;
         this.battleAttributes = new CharacterAttributes(character.characterAttributes);
         this.maximumLife = this.battleAttributes.getLife();
         this.currentLife = this.battleAttributes.getLife();
-        this._battleScene = battleScene;
-        this._battleScene.addBattleCharacter(this);
     }
 
     takeDamage(damage: number, type: SkillEffectTypeEnum): number {
@@ -89,9 +86,5 @@ export default class BattleCharacter {
                 return true;
             }
         });
-    }
-
-    endTurn(): void {
-        this._battleScene.nextTurn();
     }
 }

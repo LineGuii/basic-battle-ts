@@ -14,7 +14,8 @@ export default class Paralyze extends ExpiringEffect {
         const r = Math.random();
         if (r * 100 < 20) {
             console.log(target.character.name, "não consegue se mover por conta do paralizamento.");
-            target.endTurn();
+            target.battleAttributes.moves = 0;
+            target.battleAttributes.active = false;
         }
     }
 }

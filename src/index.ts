@@ -18,7 +18,8 @@ const merchant: Character  = new Character(
     {
         name: "Jones Biggs",
         job: Merchant,
-        level: 20
+        level: 20,
+        skillList: [NormalAttack, OfferHammer]
     }
 );
 
@@ -26,7 +27,8 @@ const scientist: Character  = new Character(
     {
         name: "Nikola Tesla",
         job: Scientist,
-        level: 20
+        level: 20,
+        skillList: [NormalAttack, LovePotion]
     }
 );
 
@@ -34,7 +36,8 @@ const acolyte: Character  = new Character(
     {
         name: "João Divino",
         job: Acolyte,
-        level: 20
+        level: 20,
+        skillList: [NormalAttack, Heal]
     }
 );
 
@@ -42,48 +45,24 @@ const scout: Character  = new Character(
     {
         name: "Teemo da Silva",
         job: Scout,
-        level: 20
+        level: 20,
+        skillList: [NormalAttack, ParalyzeDart, PoisonDart]
     }
 );
 
+const battleMerchant = new BattleCharacter(merchant);
+const battleScientist = new BattleCharacter(scientist);
+const battleAcolyte = new BattleCharacter(acolyte);
+const battleScout = new BattleCharacter(scout);
+battleScout.battleAttributes.attack += 40;
 
-const battleScene = new BattleScene();
+const battleScene = new BattleScene([battleScientist, battleScout]);
 
+async function battleStart() {
+    await battleScene.startBattle();
+}
 
-const battleMerchant = new BattleCharacter(merchant, battleScene);
-const battleScientist = new BattleCharacter(scientist, battleScene);
-const battleAcolyte = new BattleCharacter(acolyte, battleScene);
-const battleScout = new BattleCharacter(scout, battleScene);
-
-
-
-// console.log(merchant.job.name);
-// console.log(merchant.characterAttributes.getLife());
-// console.log(merchant.characterAttributes);
-// console.log(scientist.job.name);
-// console.log(scientist.characterAttributes.getLife());
-// console.log(scientist.characterAttributes);
-// console.log("Ataque: " + battleMerchant.battleAttributes.attack);
-// console.log("Defesa: " + battleScientist.battleAttributes.defense);
-
-const dpPoison = new DamageStep(battleScout, battleScientist, PoisonDart, battleScene.currentTurn);
-dpPoison.visualize();
-dpPoison.execute();
-
-battleScene.nextTurn();
-
-const dpParalyze = new DamageStep(battleScout, battleScientist, ParalyzeDart, battleScene.currentTurn);
-dpParalyze.visualize();
-dpParalyze.execute();
-
-battleScene.nextTurn();
-battleScene.nextTurn();
-battleScene.nextTurn();
-battleScene.nextTurn();
-battleScene.nextTurn();
-battleScene.nextTurn();
-battleScene.nextTurn();
-battleScene.nextTurn();
+battleStart();
 //
 // const dp1 = new DamageStep(battleMerchant, battleScientist, OfferHammer, battleScene.currentTurn);
 // dp1.visualize();

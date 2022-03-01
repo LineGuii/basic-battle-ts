@@ -25,6 +25,9 @@ export default class CharacterAttributes {
     extraResource: number;
     criticalChance: number;
 
+    moves: number;
+    active: boolean;
+
     constructor(attributes: BaseAttributes) {
         this.strength = attributes.strength;
         this.endurance = attributes.endurance;
@@ -42,6 +45,8 @@ export default class CharacterAttributes {
         this.speed = this.getSpeed();
         this.extraResource = this.getExtraResource();
         this.criticalChance = this.getCriticalChance();
+        this.moves = this.getMoves();
+        this.active = this.getActive();
     }
 
     getLife(): number {
@@ -82,5 +87,13 @@ export default class CharacterAttributes {
 
     getCriticalChance(): number {
         return 5 + (this.dexterity / 10);
+    }
+
+    getMoves(): number {
+        return 4;
+    }
+
+    getActive(): boolean {
+        return true;
     }
 }

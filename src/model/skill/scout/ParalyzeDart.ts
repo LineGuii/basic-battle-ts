@@ -27,10 +27,10 @@ const ParalyzeDart: ISkill = {
         if (r * 100 < hitChance) {
             success = true;
 
-            // Chance to apply Poison
+            // Chance to apply Paralyze
             const r3 = Math.random();
             if (r3 * 100 < 33) {
-                ee = new Paralyze(3, turn, "Poison");
+                ee = new Paralyze(3, turn, "Paralyze");
             }
 
             // Chance to Critical
