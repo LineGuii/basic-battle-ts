@@ -3,17 +3,20 @@ import { SkillEffectTypeEnum } from "../enum/SkillEnum";
 import Character from "./Character";
 import CharacterAttributes from "./CharacterAttributes";
 import ExpiringEffect from "./ExpiringEffect";
+import IEquipment from "./interface/IEquipment";
 
 export default class BattleCharacter {
     character: Character;
     maximumLife: number;
     currentLife: number;
+    private baseAttributes: CharacterAttributes;
     battleAttributes: CharacterAttributes;
     expiringEffects: ExpiringEffect[] = [];
 
     constructor(character: Character) {
         this.character = character;
-        this.battleAttributes = new CharacterAttributes(character.characterAttributes);
+        this.baseAttributes = this.calculateAttributesWithEquipmentsStats(character);
+        this.battleAttributes = this.baseAttributes;
         this.maximumLife = this.battleAttributes.getLife();
         this.currentLife = this.battleAttributes.getLife();
     }
@@ -37,16 +40,6 @@ export default class BattleCharacter {
         this.currentLife += amount;
         if (this.currentLife > this.maximumLife) {
             this.currentLife = this.maximumLife;
-        }
-    }
-
-    changeAttributes(attributeName: string, value: number, type: "SUM" | "MULTIPLY" | "DIVIDE") {
-        if (type === "SUM") {
-            // this.battleAttributes[attributeName] += value;
-        } else if (type === "MULTIPLY") {
-            // this.battleAttributes[attributeName] *= value;
-        } else if (type === "DIVIDE") {
-            // this.battleAttributes[attributeName] = this.battleAttributes[attributeName] / value;
         }
     }
 
@@ -74,7 +67,7 @@ export default class BattleCharacter {
 
     turnStarted(turn: number): void {
         // Reset attributes
-        this.battleAttributes = new CharacterAttributes(this.character.characterAttributes);
+        this.battleAttributes = this.baseAttributes;
 
         // Apply effects
         this.expiringEffects = this.expiringEffects.filter((effect: ExpiringEffect) => {
@@ -86,5 +79,18 @@ export default class BattleCharacter {
                 return true;
             }
         });
+    }
+
+    private calculateAttributesWithEquipmentsStats(character: Character): CharacterAttributes {
+        let baseAttributes: CharacterAttributes = new CharacterAttributes(character.characterAttributes);
+        character.equipments.forEach((e: IEquipment) => {
+            const eAttributes = Object.entries(e.getAttributes());
+            eAttributes.forEach((attr) => {
+                // @ts-ignore
+                baseAttributes[attr[0] as keyof CharacterAttributes] += attr[1];
+            });
+        });
+
+        return baseAttributes;
     }
 }

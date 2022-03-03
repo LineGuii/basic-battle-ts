@@ -1,4 +1,5 @@
 import CharacterAttributes, { BaseAttributes } from "./CharacterAttributes";
+import IEquipment from "./interface/IEquipment";
 import IJob from "./interface/IJob";
 import ISkill from "./interface/ISkill";
 
@@ -15,6 +16,7 @@ class Character {
     job: IJob;
     characterAttributes: CharacterAttributes;
     skillList: ISkill[];
+    equipments: IEquipment[] = [];
 
     constructor(props: CharacterProps) {
         this.name = props.name;
@@ -33,6 +35,11 @@ class Character {
             wisdom: job.baseWisdom + (job.multWisdom * level),
             dexterity: job.baseDexterity + (job.multDexterity * level),
         }
+    }
+
+    setEquipment(equipment: IEquipment) {
+        this.equipments = this.equipments.filter(e => e.category !== equipment.category);
+        this.equipments.push(equipment);
     }
 }
 

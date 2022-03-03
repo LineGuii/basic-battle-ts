@@ -1,6 +1,9 @@
+import { convertToObject } from "typescript";
 import BattleScene from "./core/BattleScene";
 import BattleCharacter from "./model/BattleCharacter";
 import Character from "./model/Character";
+import Tunic from "./model/equipment/chest/light-armor/Tunic";
+import Shortsword from "./model/equipment/main-hand/sword/Shortsword";
 import Acolyte from "./model/job/Acolyte";
 import Merchant from "./model/job/Merchant";
 import Scientist from "./model/job/Scientist";
@@ -48,6 +51,13 @@ const scout: Character  = new Character(
     }
 );
 
+scout.setEquipment(Shortsword);
+scientist.setEquipment(Tunic);
+scientist
+.setEquipment(Shortsword);
+
+console.log(merchant.equipments);
+
 const battleMerchant = new BattleCharacter(merchant);
 const battleScientist = new BattleCharacter(scientist);
 const battleAcolyte = new BattleCharacter(acolyte);
@@ -60,3 +70,4 @@ async function battleStart() {
 }
 
 battleStart();
+
