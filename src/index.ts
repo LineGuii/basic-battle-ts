@@ -14,6 +14,7 @@ import NormalAttack from "./model/skill/NormalAttack";
 import LovePotion from "./model/skill/scientist/LovePotion";
 import ParalyzeDart from "./model/skill/scout/ParalyzeDart";
 import PoisonDart from "./model/skill/scout/PoisonDart";
+import Sewer from "./model/terrain/Sewer";
 
 const merchant: Character  = new Character(
     {
@@ -53,8 +54,7 @@ const scout: Character  = new Character(
 
 scout.setEquipment(Shortsword);
 scientist.setEquipment(Tunic);
-scientist
-.setEquipment(Shortsword);
+scientist.setEquipment(Shortsword);
 
 console.log(merchant.equipments);
 
@@ -63,7 +63,7 @@ const battleScientist = new BattleCharacter(scientist);
 const battleAcolyte = new BattleCharacter(acolyte);
 const battleScout = new BattleCharacter(scout);
 
-const battleScene = new BattleScene([battleScientist, battleScout]);
+const battleScene = new BattleScene([battleScientist, battleScout], Sewer);
 
 async function battleStart() {
     await battleScene.startBattle();

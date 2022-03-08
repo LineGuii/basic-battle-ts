@@ -1,5 +1,6 @@
 import BattleCharacter from "../model/BattleCharacter";
 import ISkill from "../model/interface/ISkill";
+import ITerrain from "../model/interface/ITerrain";
 import question from "../util/ConsoleUtil";
 import Turn from "./Turn";
 
@@ -7,10 +8,12 @@ export default class BattleScene {
     battleCharacters: BattleCharacter[] = [];
     turnOrder: BattleCharacter[] = [];
     turn: Turn;
+    terrain: ITerrain;
     private ended: boolean = false;
 
-    constructor(battleCharacters: BattleCharacter[]) {
+    constructor(battleCharacters: BattleCharacter[], terrain: ITerrain) {
         this.battleCharacters = battleCharacters;
+        this.terrain = terrain;
         this.turnOrder = this.getTurnOrder();
         this.turn = new Turn(this.turnOrder[0]);
     }
@@ -26,6 +29,7 @@ export default class BattleScene {
             console.log("Erro ao iniciar a batalha, batalha já finalizada");
             return;
         }
+
         if (this.battleCharacters.length < 2) {
             console.log("Erro ao iniciar a batalha, necessário ao menos 2 personagens");
             return;
@@ -45,12 +49,23 @@ export default class BattleScene {
 
         this.checkWinCondition();
         
-        if (!this.ended) {
-            this.turn.battleCharacter = this.getNextTurnCharacter();
-            this.turn.startTurn();
-            await this.characterChoices();
-            return this.turn.turnNumber;
+        // If the battle ended
+        if (this.ended) {
+            return;
         }
+
+        this.turn.battleCharacter = this.getNextTurnCharacter();
+        this.turn.startTurn(); // TURN STARTED
+        this.terrain.effect(this.turn.turnNumber, this.turn.battleCharacter, this.battleCharacters); // TERRAIN EFFECT
+
+        // If character is not active
+        if (!this.turn.battleCharacter.battleAttributes.active) {
+            console.log(`${this.turn.battleCharacter.character.name} está paralizado e não consegue fazer nenhuma ação.`);
+            this.nextTurn();
+        }
+
+        await this.characterChoices();
+        return this.turn.turnNumber;
     }
 
     private getTurnOrder(): BattleCharacter[] {

@@ -1,6 +1,5 @@
 import BattleCharacter from "../model/BattleCharacter";
 import ISkill from "../model/interface/ISkill";
-import question from "../util/ConsoleUtil";
 import DamageStep from "./DamageStep";
 
 export default class Turn {
@@ -41,13 +40,9 @@ export default class Turn {
 
     startTurn(): void {
         console.log("Turno começou");
+        // Personagem
         console.log("Turno de:", this.battleCharacter.character.name);
-
-        // this.battleCharacters.forEach(bc => {
-        //     bc.turnStarted(this.currentTurn);
-        // });
-
-        this.battleCharacter.turnStarted(this.roundNumber);
+        this.battleCharacter.turnStarted(this);
         this._getActions();
     }
 

@@ -1,4 +1,5 @@
 import BattleScene from "../core/BattleScene";
+import Turn from "../core/Turn";
 import { SkillEffectTypeEnum } from "../enum/SkillEnum";
 import Character from "./Character";
 import CharacterAttributes from "./CharacterAttributes";
@@ -65,13 +66,13 @@ export default class BattleCharacter {
         this.expiringEffects = [...this.expiringEffects, expiringEffect];
     }
 
-    turnStarted(turn: number): void {
+    turnStarted(turn: Turn): void {
         // Reset attributes
-        this.battleAttributes = this.baseAttributes;
+        this.resetAttributes();
 
         // Apply effects
         this.expiringEffects = this.expiringEffects.filter((effect: ExpiringEffect) => {
-            if (turn > effect.turnsToExpire + (effect.startedTurn ? effect.startedTurn : 0 )) {
+            if (turn.turnNumber > effect.turnsToExpire + (effect.startedTurn ? effect.startedTurn : 0 )) {
                 return false;
             } else {
                 effect.useEffect(this);
@@ -92,5 +93,10 @@ export default class BattleCharacter {
         });
 
         return baseAttributes;
+    }
+
+    private resetAttributes() {
+        this.battleAttributes = this.baseAttributes;
+        this.battleAttributes.active = true;
     }
 }
